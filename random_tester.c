@@ -67,13 +67,13 @@ int main(int argc, char const *argv[])
         boxes[box_number]++;
     }
     // Let's assume the bug is beyond this point
-    for (i = 0; i <= points; ++i) {
+    for (i = 0; i < points; ++i) {
         histogram[i] = 0;
     }
-    for (i = 0; i <= number; ++i) { //create the histogram
+    for (i = 0; i < number; ++i) { //create the histogram
         histogram[boxes[i]]++;
     }
-    for (i = 0; i <= points; ++i) { //use this for more info
+    for (i = 0; i < points; ++i) { //use this for more info
         if (histogram[i] != 0) {
             printf("boxes with %d: %d\n", i, histogram[i]);
         }

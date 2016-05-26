@@ -76,10 +76,10 @@ int main(int argc, char const *argv[])
         if (histogram[i] != 0)
             printf("boxes with %d: %d\n", i, histogram[i]);
     }
-    // what is number?  Number is the number of boxes. Therefore k an average
+    // What is number?  Number is the number of boxes. Therefore k an average
     k = points / number;
     poisson_fact = exp(-k);
-    for (i = 0; i < 21; i++) //above 21 I aproximate the poisson distribution as 0
+    for (i = 0; i < 21 && i < points; i++) //above 21 I aproximate the poisson distribution as 0
     {
         rootNk = 1 / pow(histogram[i], 0.5);
         poisson = (poisson_fact * pow(k, i)) / factorial(i);

@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
     {
         rootNk = 1 / pow(histogram[i], 0.5);
         poisson = (poisson_fact * pow(k, i)) / factorial(i);
-        // Do we know the equation is correct?
+        // Do we know the equation is correct? - JMS
         /*
         N_k = number of boxes with exactly k points
         P(k) = exp(-<k>) <k>^k / factorial(k)
@@ -103,18 +103,12 @@ int main(int argc, char const *argv[])
         }
     }
     printf("%d\n", poisson_boxes);
+    /*  this gives boxes credit for being empty.
+        Thus, 10000 points in a six-dimensional hypercube are almost 100% equivalent to your 
+        approximation of the Poisson distribution, and are given points for being so similar. */
     for(i = 21; i < points; i++) //since factorial is too large for int over 12, I assume poisson is 0
         if (histogram[i] == 0)
             poisson_boxes++;
     printf("%lf %% \n", 100 * ((double) poisson_boxes / points));
-
-    
-
-
-
-
-
-
     return 0;
 }
-

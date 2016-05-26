@@ -67,16 +67,19 @@ int main(int argc, char const *argv[])
         boxes[box_number]++;
     }
     // Let's assume the bug is beyond this point
-    for (i = 0; i <= points; ++i)
+    for (i = 0; i <= points; ++i) {
         histogram[i] = 0;
-    for (i = 0; i <= number; ++i)//create the histogram
-        histogram[boxes[i]]++;
-    for (i = 0; i <= points; ++i) //use this for more info
-    {
-        if (histogram[i] != 0)
-            printf("boxes with %d: %d\n", i, histogram[i]);
     }
-    // What is number?  Number is the number of boxes. Therefore k an average
+    for (i = 0; i <= number; ++i) { //create the histogram
+        histogram[boxes[i]]++;
+    }
+    for (i = 0; i <= points; ++i) { //use this for more info
+        if (histogram[i] != 0) {
+            printf("boxes with %d: %d\n", i, histogram[i]);
+        }
+    }
+    // number is the number of boxes. Therefore k an average
+    // So, let's take a look at this
     k = points / number;
     poisson_fact = exp(-k);
     for (i = 0; i < 21 && i < points; i++) //above 21 I aproximate the poisson distribution as 0

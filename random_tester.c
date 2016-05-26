@@ -86,6 +86,18 @@ int main(int argc, char const *argv[])
     {
         rootNk = 1 / pow(histogram[i], 0.5);
         poisson = (poisson_fact * pow(k, i)) / factorial(i);
+        // Do we know the equation is correct?
+        /*
+        N_k = number of boxes with exactly k points
+        P(k) = exp(-<k>) <k>^k / factorial(k)
+            where <k> = N/exp(m, d)
+                where m is the number of hypercubes along a side
+                and d is the dimension of the hypercubes
+        Compare this expression with your histogram.
+
+        The confidence interval of the fraction N_k/N is P(k) / pow(N_k, 0.5)
+        If the histogram is outside the 68% confidence boundary, reject
+        */
         if((histogram[i] / points >= poisson - poisson * rootNk) && (histogram[i] / points <= poisson + poisson * rootNk)) {
             poisson_boxes++;
         }

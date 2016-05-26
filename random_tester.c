@@ -86,9 +86,10 @@ int main(int argc, char const *argv[])
     {
         rootNk = 1 / pow(histogram[i], 0.5);
         poisson = (poisson_fact * pow(k, i)) / factorial(i);
-        if(histogram[i] / points >= poisson - poisson * rootNk)
-            if(histogram[i] / points <= poisson + poisson * rootNk)
+        if(histogram[i] / points >= poisson - poisson * rootNk
+            && histogram[i] / points <= poisson + poisson * rootNk)
                 poisson_boxes++;
+        }
     }
     printf("%d\n", poisson_boxes);
     for(i = 21; i < points; i++) //since factorial is too large for int over 12, I assume poisson is 0

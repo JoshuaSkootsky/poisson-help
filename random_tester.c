@@ -81,34 +81,25 @@ int main(int argc, char const *argv[])
     // number is the number of boxes. Therefore k an average
     // So, let's take a look at this
     k = points / number;
+    int total = 0;
     poisson_fact = exp(-k);
-    for (i = 0; i < 21 && i < points; i++) //above 21 I aproximate the poisson distribution as 0
-    {
-        rootNk = 1 / pow(histogram[i], 0.5);
-        poisson = (poisson_fact * pow(k, i)) / factorial(i);
-        // Do we know the equation is correct? - JMS
-        /*
-        N_k = number of boxes with exactly k points
-        P(k) = exp(-<k>) <k>^k / factorial(k)
-            where <k> = N/exp(m, d)
-                where m is the number of hypercubes along a side
-                and d is the dimension of the hypercubes
-        Compare this expression with your histogram.
-
-        The confidence interval of the fraction N_k/N is P(k) / pow(N_k, 0.5)
-        If the histogram is outside the 68% confidence boundary, reject
-        */
-        if((histogram[i] / points >= poisson - poisson * rootNk) && (histogram[i] / points <= poisson + poisson * rootNk)) {
-            poisson_boxes++;
+    for (i = 0; i < 21 && i < points; i++) { //above 21 I aproximate the poisson distribution as 0
+        if (histogram[i] != 0) {
+            rootNk = 1 / pow(histogram[i], 0.5);
+            poisson = (poisson_fact * pow(k, i)) / factorial(i);
+            if((histogram[i] / points >= poisson - poisson * rootNk) && (histogram[i] / points <= poisson + poisson * rootNk))
+                poisson_boxes++;
+            else {
+                total++;
+            }
         }
     }
+    printf("%d\n", total);
     printf("%d\n", poisson_boxes);
-    /*  this gives boxes credit for being empty.
-        Thus, 10000 points in a six-dimensional hypercube are almost 100% equivalent to your 
-        approximation of the Poisson distribution, and are given points for being so similar. */
-    for(i = 21; i < points; i++) //since factorial is too large for int over 12, I assume poisson is 0
+    /*
+    for(i = 21; i < points; i++) //since factorial is too large for int over 21, I assume poisson is 0
         if (histogram[i] == 0)
-            poisson_boxes++;
-    printf("%lf %% \n", 100 * ((double) poisson_boxes / points));
+            poisson_boxes++;*/
+    printf("%lf%%\n", 100 * ((double) poisson_boxes / (poisson_boxes + total)));
     return 0;
 }

@@ -12,6 +12,6 @@ unsigned int random_maker(unsigned int random_number)
     int mult = 236887691;   // multiplier
     int add = 961835761;  //aditive constant
     // Commenting out this line cripples the random number generator
-    // random_number = random_number * mult + add;
+    random_number = random_number * mult + add;
     return random_number;
 }

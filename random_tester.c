@@ -66,6 +66,7 @@ int main(int argc, char const *argv[])
         }
         boxes[box_number]++;
     }
+    // Let's assume the bug is beyond this point
     for (i = 0; i <= points; ++i)
         histogram[i] = 0;
     for (i = 0; i <= number; ++i)//create the histogram

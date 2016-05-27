@@ -41,7 +41,9 @@ int main()
     
     printf("What is the random seed? Provide a 32 bit integer\n");
     scanf("%d", &seed);
+    // divide the 32 bit integer by the largest unsigned 32 bit integer
     rn = (double) seed / 0xFFFFFFFF;
+    
     // number is the number of mini hypercubes
     number = pow(box, dimensions);
     printf("\n %d \n", number);
@@ -50,8 +52,10 @@ int main()
     dimension_factor = malloc (dimensions * sizeof (int*) );
     // set the boxes initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
+    puts("Assigning memory to boxes \n");
     boxes =  calloc ( number, sizeof (int) );
-
+    puts("It worked to assign memory to boxes!\n");
+    
     // may as well do the same for the histograms
     histogram = calloc( points, sizeof (int) );
 

@@ -6,19 +6,17 @@
 #define big 4294967296.0 //range of random number generator 2^32
 
 // I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
-unsigned long int factorial(int num)
-{
-    if (num > 20) //20 factorial is the largest that can fit in int
-    {
+unsigned long int factorial(int num) {
+    // really a table of the first 20 factorials would be better
+    if (num > 20) { //20 factorial is the largest that can fit in int
         return 0;
     }
-    else{
+    else {
         int i;
-        unsigned long int ret = 1;
-        for (i = num; i > 0; i--)
-        {
+        unsigned long int ret = 1; // get the max size on this
+        while (num > 0) {
             ret *= i;
-
+            num--;
         }
         return ret;
     }
@@ -55,13 +53,24 @@ int main(int argc, char const *argv[])
     dimension_factor = malloc (sizeof (int) * dimensions);
     boxes = malloc( sizeof (int) * number);
     histogram = malloc( sizeof(int) * points);
+    // Why does this happen?
     dimension_factor[0] = 1;
-    for (i = 1; i < dimensions; ++i)
+
+    // why ++i. why not i++. This is terrible. I need to fix this - JMS 
+    for (i = 1; i < dimensions; ++i) {
         dimension_factor[i] = dimension_factor[i - 1] * box;
-    for (i = 0; i <= number; ++i)
+    }
+    
+    for (i = 0; i <= number; ++i) {
         boxes[i] = 0;
-    for (i = 0; i < 10; ++i) //run the rng to try to mitigate seed picking biase
+    }
+
+    // Run the RNG a few times just to get away from your seed
+    for (i = 0; i < 10; i++) {
         rn = random_maker(rn);
+    }
+
+    // Now something happens
     for (i = 0; i <= points; ++i)
     {
         box_number = 0;
@@ -74,7 +83,8 @@ int main(int argc, char const *argv[])
         }
         boxes[box_number]++;
     }
-    // Let's assume the bug is beyond this point
+    
+
     for (i = 0; i < points; ++i) {
         histogram[i] = 0;
     }

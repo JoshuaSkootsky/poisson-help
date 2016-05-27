@@ -51,7 +51,8 @@ int main(int argc, char const *argv[])
 
     /*allocate memory*/
     dimension_factor = malloc (sizeof (int) * dimensions);
-    boxes = malloc( sizeof (int) * number);
+    // set the boxes initially to zero, so use calloc
+    boxes = calloc (sizeof (int),  number);
     histogram = malloc( sizeof(int) * points);
     // Why does this happen?
     dimension_factor[0] = 1;
@@ -60,9 +61,7 @@ int main(int argc, char const *argv[])
         dimension_factor[i] *= box;
     }
     
-    for (i = 0; i <= number; ++i) {
-        boxes[i] = 0;
-    }
+    // the boxes array was set to zero with calloc
 
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {

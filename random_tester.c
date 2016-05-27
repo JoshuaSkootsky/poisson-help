@@ -4,6 +4,8 @@
 #include <math.h>
 #include "random.h"
 #define big 4294967296.0 //range of random number generator 2^32
+
+// I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
 unsigned long int factorial(int num)
 {
     if (num > 20) //20 factorial is the largest that can fit in int
@@ -21,15 +23,18 @@ unsigned long int factorial(int num)
         return ret;
     }
 }
+
+
 int main(int argc, char const *argv[])
 {
     int i, j, box_number;
     int dimensions, points, number, box, poisson_boxes = 0;
     double k, cube, fact, point, box_size1, poisson, poisson_fact, rootNk;
     unsigned int rn; //random number
-    int * histogram;
-    int * boxes;
-    int * dimension_factor;
+    int *histogram;
+    int *boxes;
+    int *dimension_factor;
+    
     printf("What is the number of dimensions?\n");
     scanf("%d", &dimensions);
     printf("What is the number of points?\n");
@@ -40,13 +45,16 @@ int main(int argc, char const *argv[])
     scanf("%d", &box);
     printf("What is the random seed?\n");
     scanf("%u", &rn);
+    // number is the number of mini hypercubes
     number = pow(box, dimensions);
+    // fact is the inverse of the biggest number we can deal with
     fact = (1 / big) * cube;
     box_size1 = box / cube;
+
     /*allocate memory*/
-    dimension_factor = (int *)malloc(dimensions * sizeof(int));
-    boxes = (int *)malloc(number * sizeof(int));
-    histogram = (int *)malloc(points * sizeof(int));
+    dimension_factor = malloc (sizeof (int) * dimensions);
+    boxes = malloc( sizeof (int) * number);
+    histogram = malloc( sizeof(int) * points);
     dimension_factor[0] = 1;
     for (i = 1; i < dimensions; ++i)
         dimension_factor[i] = dimension_factor[i - 1] * box;

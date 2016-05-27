@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "random.h"
-#define big 0xFFFFFFFF // largest 32 bit unsigned int is 8 Fs in hexadecidaml
 
 // I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
 unsigned long int factorial(int num) {
@@ -27,8 +26,8 @@ int main(int argc, char const *argv[])
 {
     int i, j, box_number;
     int dimensions, points, number, box, poisson_boxes = 0;
-    double k, fact, point, box_size1, poisson, poisson_fact, rootNk;
-    unsigned int rn; //random number
+    double k, point, box_size1, poisson, poisson_fact, rootNk;
+    double rn; //random number
     int *histogram;
     int *boxes;
     int *dimension_factor;
@@ -44,9 +43,6 @@ int main(int argc, char const *argv[])
     
     // number is the number of mini hypercubes
     number = pow(box, dimensions);
-    // fact is the inverse of the biggest number we can deal with.
-    // This factor will take a 32 bit number and turn it into a double float between 0 and 1.
-    fact = (1 / big);
 
     /*allocate memory*/
     dimension_factor = malloc (sizeof (int) * dimensions);
@@ -76,9 +72,9 @@ int main(int argc, char const *argv[])
         for (j = 0; j < dimensions; j++)
         {
             // calls the random_maker function that needs to be random.c
-            // fact assumes that random_maker delievers a 32 bit int
+            // Specified that random_maker delievers a number between 0 and 1
             rn = random_maker(rn);
-            point = rn * fact;
+            point = rn;
             // scales the number appropriately to be between 0 and 1
             
             // okay so something really fancy here happens.
@@ -94,7 +90,7 @@ int main(int argc, char const *argv[])
     // boxes is an indexed array of all the hypercubes
     for (i = 0; i < number; i++) {
         //create the histogram
-        // how 
+        // how op
         histogram[boxes[i]]++;
     }
     for (i = 0; i < points; i++) { //use this for more info

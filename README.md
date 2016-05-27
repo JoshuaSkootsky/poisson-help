@@ -35,3 +35,13 @@ A Makefile is included in this directory
 $ make random_tester
 
 You may want to edit the Makefile to use your favorite, standards conforming C compiler.
+
+# Valgrind
+
+Check for memory leaks using Valgrind like this:
+
+valgrind --leak-check=yes ./random_tester
+
+Very useful for developing programs in C.
+
+

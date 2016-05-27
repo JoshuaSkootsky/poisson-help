@@ -22,9 +22,9 @@ unsigned long int factorial(int num) {
 }
 
 
-int main(int argc, char const *argv[])
+int main()
 {
-    int i, j, box_number;
+    int seed, i, j, box_number;
     int dimensions, points, number, box, poisson_boxes = 0;
     double k, point, box_size1, poisson, poisson_fact, rootNk;
     double rn; //random number
@@ -38,19 +38,23 @@ int main(int argc, char const *argv[])
     scanf("%d", &points);
     printf("How many boxes per side?\n");
     scanf("%d", &box);
-    printf("What is the random seed?\n");
-    scanf("%u", &rn);
     
+    printf("What is the random seed? Provide a 32 bit integer\n");
+    scanf("%d", &seed);
+    rn = (double) seed / 0xFFFFFFFF;
     // number is the number of mini hypercubes
     number = pow(box, dimensions);
+    printf("\n %d \n", number);
 
-    /*allocate memory*/
-    dimension_factor = malloc (sizeof (int) * dimensions);
+    // allocate memory
+    dimension_factor = malloc (dimensions * sizeof (int*) );
     // set the boxes initially to zero, so use calloc
-    boxes = calloc (sizeof (int),  number);
+    // boxes an array, each spot representing a mini hypercube.
+    boxes =  calloc ( number, sizeof (int) );
+
     // may as well do the same for the histograms
-    histogram = calloc( sizeof(int), points);
-    
+    histogram = calloc( points, sizeof (int) );
+
     // Why does this happen?
     dimension_factor[0] = 1;
     for (i = 1; i < dimensions; i++) {
@@ -112,10 +116,10 @@ int main(int argc, char const *argv[])
     }
     printf("%d\n", total);
     printf("%d\n", poisson_boxes);
-    /*
+    
     for(i = 21; i < points; i++) //since factorial is too large for int over 21, I assume poisson is 0
         if (histogram[i] == 0)
-            poisson_boxes++;*/
+            poisson_boxes++;
     printf("%lf%%\n", 100 * ((double) poisson_boxes / (poisson_boxes + total)));
     return 0;
 }

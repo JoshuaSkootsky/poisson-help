@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "random.h"
-#define big 4294967296.0 //range of random number generator 2^32
+#define big 4294967296.0 // largest 32 bit unsigned int
 
 // I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
 unsigned long int factorial(int num) {
@@ -37,8 +37,6 @@ int main(int argc, char const *argv[])
     scanf("%d", &dimensions);
     printf("What is the number of points?\n");
     scanf("%d", &points);
-    printf("What are the lengths of the hyper-cube sides?\n");
-    scanf("%lf", &cube);
     printf("How many boxes per side?\n");
     scanf("%d", &box);
     printf("What is the random seed?\n");
@@ -46,8 +44,7 @@ int main(int argc, char const *argv[])
     // number is the number of mini hypercubes
     number = pow(box, dimensions);
     // fact is the inverse of the biggest number we can deal with
-    fact = (1 / big) * cube;
-    box_size1 = box / cube;
+    fact = (1 / big);
 
     /*allocate memory*/
     dimension_factor = malloc (sizeof (int) * dimensions);
@@ -69,13 +66,14 @@ int main(int argc, char const *argv[])
     }
 
     // Now something happens
-    for (i = 0; i <= points; ++i)
+    for (i = 0; i < points; ++i)
     {
         box_number = 0;
+        // dimensions is the number of dimensions the hypercubes exist in
         for (j = 0; j < dimensions; ++j)
         {
             rn = random_maker(rn);
-            point = rn * fact;
+            point = rn * fact; // scale the number appropriately
             //printf("%lf\n", point);
             box_number += floor(point * box_size1) * dimension_factor[j];
         }

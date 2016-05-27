@@ -58,18 +58,20 @@ int main()
     
     // may as well do the same for the histograms
     histogram = calloc( points, sizeof (int) );
-
+    puts("Let's try assigning memory to histogram!\n");
+    
     // Why does this happen?
     dimension_factor[0] = 1;
     for (i = 1; i < dimensions; i++) {
         dimension_factor[i] *= box;
     }
     
+    puts("We did something with the dimension factor, and the program did not crash!");
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
         rn = random_maker(rn);
     }
-
+    puts("We ran the RNG a few times, and the program did not crash!");
     // Now something happens
     // the boxes array was set to zero with calloc
     
@@ -87,9 +89,10 @@ int main()
             // wait what the heck 
             box_number += floor(point * box_size1) * dimension_factor[j];
         }
+        puts("We're going to try doing something with boxes!\n");
         boxes[box_number]++;
     }
-    
+    puts("We did something with the boxes in line 93, and this program did not crash!\n"); 
     // number is the number of mini hypercubes
     // boxes is an indexed array of all the hypercubes
     for (i = 0; i < number; i++) {

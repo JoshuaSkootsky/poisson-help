@@ -56,9 +56,8 @@ int main(int argc, char const *argv[])
     // Why does this happen?
     dimension_factor[0] = 1;
 
-    // why ++i. why not i++. This is terrible. I need to fix this - JMS 
-    for (i = 1; i < dimensions; ++i) {
-        dimension_factor[i] = dimension_factor[i - 1] * box;
+    for (i = 1; i < dimensions; i++) {
+        dimension_factor[i] *= box;
     }
     
     for (i = 0; i <= number; ++i) {

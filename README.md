@@ -18,11 +18,11 @@ The program will test your implementation of an RNG for conformation to the expe
 
 Like this:
 
-`$ ./random_tester_exe < random_tester_input`
+`$ ./random_tester < random_tester.inp`
 
 You can also do it like this:
 
-`$ ./random_tester_exe`
+`$ ./random_tester`
 
 and get text prompts for the program. You can then copy and paste your text inputs into an input file to test different implementations of RNGs.
 

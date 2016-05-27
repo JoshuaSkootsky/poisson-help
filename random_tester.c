@@ -71,15 +71,11 @@ int main(int argc, char const *argv[])
         // dimensions is the number of dimensions the hypercubes exist in
         for (j = 0; j < dimensions; j++)
         {
-            // calls the random_maker function that needs to be random.c
-            // Specified that random_maker delievers a number between 0 and 1
+            // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
+            // if I'm using the random number directly, I don't need a "point" variable
             point = rn;
-            // scales the number appropriately to be between 0 and 1
             
-            // okay so something really fancy here happens.
-            /* The count of points in boxes is advanced */
-            //box_number array holds the count of points in that box
             // wait what the heck 
             box_number += floor(point * box_size1) * dimension_factor[j];
         }

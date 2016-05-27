@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "random.h"
-#define big 4294967296.0 // largest 32 bit unsigned int
+#define big 0xFFFFFFFF // largest 32 bit unsigned int is 8 Fs in hexadecidaml
 
 // I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
 unsigned long int factorial(int num) {
@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
 {
     int i, j, box_number;
     int dimensions, points, number, box, poisson_boxes = 0;
-    double k, cube, fact, point, box_size1, poisson, poisson_fact, rootNk;
+    double k, fact, point, box_size1, poisson, poisson_fact, rootNk;
     unsigned int rn; //random number
     int *histogram;
     int *boxes;
@@ -41,16 +41,20 @@ int main(int argc, char const *argv[])
     scanf("%d", &box);
     printf("What is the random seed?\n");
     scanf("%u", &rn);
+    
     // number is the number of mini hypercubes
     number = pow(box, dimensions);
-    // fact is the inverse of the biggest number we can deal with
+    // fact is the inverse of the biggest number we can deal with.
+    // This factor will take a 32 bit number and turn it into a double float between 0 and 1.
     fact = (1 / big);
 
     /*allocate memory*/
     dimension_factor = malloc (sizeof (int) * dimensions);
     // set the boxes initially to zero, so use calloc
     boxes = calloc (sizeof (int),  number);
-    histogram = malloc( sizeof(int) * points);
+    // may as well do the same for the histograms
+    histogram = calloc( sizeof(int), points);
+    
     // Why does this happen?
     dimension_factor[0] = 1;
 
@@ -80,10 +84,6 @@ int main(int argc, char const *argv[])
         boxes[box_number]++;
     }
     
-
-    for (i = 0; i < points; ++i) {
-        histogram[i] = 0;
-    }
     for (i = 0; i < number; ++i) { //create the histogram
         histogram[boxes[i]]++;
     }

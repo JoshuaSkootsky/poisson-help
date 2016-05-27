@@ -57,37 +57,47 @@ int main(int argc, char const *argv[])
     
     // Why does this happen?
     dimension_factor[0] = 1;
-
     for (i = 1; i < dimensions; i++) {
         dimension_factor[i] *= box;
     }
     
-    // the boxes array was set to zero with calloc
-
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
         rn = random_maker(rn);
     }
 
     // Now something happens
+    // the boxes array was set to zero with calloc
+    
     for (i = 0; i < points; ++i)
     {
         box_number = 0;
         // dimensions is the number of dimensions the hypercubes exist in
-        for (j = 0; j < dimensions; ++j)
+        for (j = 0; j < dimensions; j++)
         {
+            // calls the random_maker function that needs to be random.c
+            // fact assumes that random_maker delievers a 32 bit int
             rn = random_maker(rn);
-            point = rn * fact; // scale the number appropriately
-            //printf("%lf\n", point);
+            point = rn * fact;
+            // scales the number appropriately to be between 0 and 1
+            
+            // okay so something really fancy here happens.
+            /* The count of points in boxes is advanced */
+            //box_number array holds the count of points in that box
+            // wait what the heck 
             box_number += floor(point * box_size1) * dimension_factor[j];
         }
         boxes[box_number]++;
     }
     
-    for (i = 0; i < number; ++i) { //create the histogram
+    // number is the number of mini hypercubes
+    // boxes is an indexed array of all the hypercubes
+    for (i = 0; i < number; i++) {
+        //create the histogram
+        // how 
         histogram[boxes[i]]++;
     }
-    for (i = 0; i < points; ++i) { //use this for more info
+    for (i = 0; i < points; i++) { //use this for more info
         if (histogram[i] != 0) {
             printf("boxes with %d: %d\n", i, histogram[i]);
         }

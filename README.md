@@ -2,7 +2,7 @@ Copyright 2016, Joshua Skootsky and Yehuda Gale
 This code may be licensed under the terms and conditions of the Apache 2.0
 License. A copy of this licence may be found included along with this code, or, in the case of some kind of disaster, accessed online on the Apache Foundation website: http://www.apache.org/licenses/LICENSE-2.0
 
-In the absence of such licensure, copyright over created works prevents their unauthorized usag. So, hold on to your copy of the license and this README.md if you want to use this program.
+In the absence of such licensure, copyright over created works prevents their unauthorized usage. So, hold on to your copy of the license and this README.md if you want to use this program. You may use this program according to the terms and conditions of the Apache 2.0 License.
 
 
 # poisson-help

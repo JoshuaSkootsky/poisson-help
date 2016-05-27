@@ -1,17 +1,14 @@
 // Yehuda Gale
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "random.h"
-unsigned int random_maker(unsigned int random_number)
+// Joshua Skootsky
+// Returns a number between 0 and 1, with a max cycle of 2^32
+#include <stdint.h>
+
+static uint32_t mult = 236887691;           // multiplier
+static uint32_t add = 961835761;            //aditive constant
+
+double random_maker(uint32_t rand32)
 {
-    /*I seperated this into it's own file
-     so it would be easy to change
-     the method of random number generation*/
-     //I used large prime numbers for both mult and add
-    int mult = 236887691;   // multiplier
-    int add = 961835761;  //aditive constant
-    // Commenting out this line cripples the random number generator
-    random_number = random_number * mult + add;
-    return random_number;
+    rand32 = rand32 * mult + add;
+    return (double) rand32 / 0xFFFFFFFF;
+    // largest 32 bit unsigned int is 8 Fs in hexadecidaml;
 }

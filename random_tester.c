@@ -30,7 +30,6 @@ int main()
     double rn; //random number
     int *histogram;
     int *boxes;
-    int *dimension_factor;
     
     printf("What is the number of dimensions?\n");
     scanf("%d", &dimensions);
@@ -48,8 +47,6 @@ int main()
     number = pow(box, dimensions);
     printf("\n %d \n", number);
 
-    // allocate memory
-    dimension_factor = malloc (dimensions * sizeof (int*) );
     // set the boxes initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
     puts("Assigning memory to boxes \n");
@@ -59,12 +56,6 @@ int main()
     // may as well do the same for the histograms
     histogram = calloc( points, sizeof (int) );
     puts("Let's try assigning memory to histogram!\n");
-    
-    // Why does this happen?
-    dimension_factor[0] = 1;
-    for (i = 1; i < dimensions; i++) {
-        dimension_factor[i] *= box;
-    }
     
     puts("We did something with the dimension factor, and the program did not crash!");
     // Run the RNG a few times just to get away from your seed
@@ -79,15 +70,14 @@ int main()
     {
         box_number = 0;
         // dimensions is the number of dimensions the hypercubes exist in
-        for (j = 0; j < dimensions; j++)
+        for (j = 1; j <= dimensions; j++)
         {
             // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
             // if I'm using the random number directly, I don't need a "point" variable
             point = rn;
             
-            // wait what the heck 
-            box_number += floor(point * box_size1) * dimension_factor[j];
+            box_number += floor(point * box_size1) * j;
         }
         puts("We're going to try doing something with boxes!\n");
         boxes[box_number]++;

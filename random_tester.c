@@ -25,8 +25,8 @@ unsigned long int factorial(int num) {
 int main()
 {
     int seed, i, j, box_number;
-    int dimensions, points, number, box, poisson_boxes = 0;
-    double k, point, box_size1, poisson, poisson_fact, rootNk;
+    int dimensions, points, number, box_num, poisson_boxes = 0;
+    double k, point, box_size, poisson, poisson_fact, rootNk;
     double rn; //random number
     int *histogram;
     int *boxes;
@@ -35,8 +35,10 @@ int main()
     scanf("%d", &dimensions);
     printf("What is the number of points?\n");
     scanf("%d", &points);
-    printf("How many boxes per side?\n");
-    scanf("%d", &box);
+    printf("How many minihypercubes per side length?\n");
+    scanf("%d", &box_num);
+    // assume the cube is of unit length, what is the length of the sides of the mini cubes?
+    box_size = 1/box_num;
     
     printf("What is the random seed? Provide a 32 bit integer\n");
     scanf("%d", &seed);
@@ -44,7 +46,7 @@ int main()
     rn = (double) seed / 0xFFFFFFFF;
     
     // number is the number of mini hypercubes
-    number = pow(box, dimensions);
+    number = pow(box_num, dimensions);
     printf("\n %d \n", number);
 
     // set the boxes initially to zero, so use calloc
@@ -77,7 +79,7 @@ int main()
             // if I'm using the random number directly, I don't need a "point" variable
             point = rn;
             
-            box_number += floor(point * box_size1) * j;
+            box_number += floor(point * box_size) * j;
         }
         puts("We're going to try doing something with boxes!\n");
         boxes[box_number]++;

@@ -57,6 +57,8 @@ int main()
     // number is the number of mini hypercubes
     number = ipow(box_num, dimensions);
     printf("\nThis is how many mini-hypercubes you have: %d \n", number);
+    printf("This is how many dimensions: %d \n", dimensions);
+    printf("This is how many points: %d \n", points);
 
     // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
@@ -85,6 +87,7 @@ int main()
         }
         // boxes is of size number. number is box_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
+        printf("box number: %d", which box);    
     }
     // Now we have a filled array of boxes, filled with points 
     

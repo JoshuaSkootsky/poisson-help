@@ -45,9 +45,9 @@ int main()
     printf("What is the number of points?\n");
     scanf("%d", &points);
     printf("How many minihypercubes per side length?\n");
-    scanf("%d", &box_num);
+    scanf("%d", &side_num);
     // assume the cube is of unit length, what is the length of the sides of the mini cubes?
-    box_size = 1/box_num;
+    box_size = 1/side_num;
     
     printf("What is the random seed? Provide a 32 bit integer\n");
     scanf("%d", &random_seed);
@@ -55,7 +55,7 @@ int main()
     seed(random_seed);
  
     // number is the number of mini hypercubes
-    number = ipow(box_num, dimensions);
+    number = ipow(side_num, dimensions);
     printf("\nThis is how many mini-hypercubes you have: %d \n", number);
     printf("This is how many dimensions: %d \n", dimensions);
     printf("This is how many points: %d \n", points);
@@ -77,17 +77,12 @@ int main()
         for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
             rn = random_maker();
-            // BAD CODE EXAMPLE DO NOT USE if
-            // which_box += floor(rn * box_num) * j;
-            // then maxvalue of which_box is ~35
-            // which in a 10x10x10 cube means that 95% of the mini cubes will be empty
-            // needs to range from 0 to number
-            side_num = floor(rn * box_num);
-            which_box += ipow(side_num, j);
+            // final value of which_box needs to range from 0 to number
+            box_num = floor(rn * side_num);
+            which_box += box_num * ipow(side_num, j);
         }
-        // boxes is of size number. number is box_num to the power of dimension
+        // boxes is of size number. number is side_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
-        printf("box number: %d", which_box);    
     }
     // Now we have a filled array of boxes, filled with points 
     

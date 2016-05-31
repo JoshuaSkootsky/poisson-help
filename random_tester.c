@@ -24,12 +24,9 @@ unsigned long int factorial(int num) {
 
 int main()
 {
-    int seed, i, j, box_count;
-    int dimensions, points, number, box_num, poisson_boxes = 0;
-    double k, point, box_size, poisson, poisson_fact, rootNk;
-    double rn; //random number
-    int *histogram;
-    int *boxes;
+    int seed, i, j, which_box, dimensions, points, number, box_num, poisson_boxes = 0;
+    double k, point, box_size, poisson, poisson_fact, rootNk, rn;
+    int *histogram, *boxes;
     
     printf("What is the number of dimensions?\n");
     scanf("%d", &dimensions);

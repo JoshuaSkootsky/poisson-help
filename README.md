@@ -36,6 +36,8 @@ $ make random_tester
 
 You may want to edit the Makefile to use your favorite, standards conforming C compiler.
 
+I also have a recompile.sh script to do the making for you.
+
 # Valgrind
 
 Check for memory leaks using Valgrind like this:

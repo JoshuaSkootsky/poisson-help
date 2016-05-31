@@ -21,10 +21,22 @@ unsigned long int factorial(int num) {
     }
 }
 
+// custom integer power function - uses exponentiation by squaring
+int ipow(int base, int exp) {
+    int value = 1;
+    while (exp) { // while exp is nonzero
+        if (exp & 1) { // if exp is odd
+            value *= base;
+        }
+        exp >>= 1;
+        base *= base;
+    }
+    return value;
+}
 
 int main()
 {
-    int random_seed, i, j, which_box, dimensions, points, number, box_num, box_count, poisson_boxes;
+    int random_seed, i, j, which_box, dimensions, points, number, box_num, side_num, box_count, poisson_boxes;
     double k, point, box_size, poisson, poisson_fact, rootNk, rn;
     int *histogram, *boxes;
     
@@ -43,7 +55,7 @@ int main()
     seed(random_seed);
  
     // number is the number of mini hypercubes
-    number = pow(box_num, dimensions);
+    number = ipow(box_num, dimensions);
     printf("\nThis is how many mini-hypercubes you have: %d \n", number);
 
     // set the boxes and histogram initially to zero, so use calloc
@@ -63,12 +75,16 @@ int main()
         for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
             rn = random_maker();
-            printf("j: %d random: %f", j, rn);
-            which_box += floor(rn * box_num) * j;
+            // BAD CODE EXAMPLE DO NOT USE if
+            // which_box += floor(rn * box_num) * j;
+            // then maxvalue of which_box is ~35
+            // which in a 10x10x10 cube means that 95% of the mini cubes will be empty
+            // needs to range from 0 to number
+            side_num = floor(rn * box_num);
+            which_box += ipow(side_num, j);
         }
         // boxes is of size number. number is box_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
-        printf("\nThis is the box: %d\n", which_box);
     }
     // Now we have a filled array of boxes, filled with points 
     
@@ -95,7 +111,7 @@ int main()
     for (i = 0; i < 21 && i < points; i++) { //above 21 I aproximate the poisson distribution as 0
         if (histogram[i] != 0) {
             rootNk = 1 / sqrt(histogram[i]); // using sqrt instead of pow 0.5
-            poisson = (poisson_fact * pow(k, i)) / factorial(i);
+            poisson = (poisson_fact * ipow(k, i)) / factorial(i);
             if((histogram[i] / points >= poisson - poisson * rootNk) && (histogram[i] / points <= poisson + poisson * rootNk))
                 poisson_boxes++;
             else {

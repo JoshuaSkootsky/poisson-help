@@ -49,26 +49,18 @@ int main()
     number = pow(box_num, dimensions);
     printf("\n %d \n", number);
 
-    // set the boxes initially to zero, so use calloc
+    // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
     puts("Assigning memory to boxes \n");
     boxes =  calloc ( number, sizeof (int) );
-    puts("It worked to assign memory to boxes!\n");
-    
-    // may as well do the same for the histograms
     histogram = calloc( points, sizeof (int) );
-    puts("Let's try assigning memory to histogram!\n");
-    
-    puts("We did something with the dimension factor, and the program did not crash!");
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
         rn = random_maker(rn);
     }
-    puts("We ran the RNG a few times, and the program did not crash!");
-    // Now something happens
-    // the boxes array was set to zero with calloc
     
-    for (i = 0; i < points; ++i)
+    // Generate the points, place into boxes.
+    for (i = 0; i < points; i++)
     {
         box_number = 0;
         // dimensions is the number of dimensions the hypercubes exist in
@@ -104,7 +96,7 @@ int main()
     poisson_fact = exp(-k);
     for (i = 0; i < 21 && i < points; i++) { //above 21 I aproximate the poisson distribution as 0
         if (histogram[i] != 0) {
-            rootNk = 1 / pow(histogram[i], 0.5);
+            rootNk = 1 / sqrt(histogram[i]); // using sqrt instead of pow 0.5
             poisson = (poisson_fact * pow(k, i)) / factorial(i);
             if((histogram[i] / points >= poisson - poisson * rootNk) && (histogram[i] / points <= poisson + poisson * rootNk))
                 poisson_boxes++;

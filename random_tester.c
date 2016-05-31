@@ -44,7 +44,7 @@ int main()
  
     // number is the number of mini hypercubes
     number = pow(box_num, dimensions);
-    printf("\n %d \n", number);
+    printf("\nThis is how many mini-hypercubes you have: %d \n", number);
 
     // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
@@ -53,7 +53,7 @@ int main()
     
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
-        rn = random_maker(rn);
+        rn = random_maker();
     }
     
     // Generate the points, place into boxes.
@@ -62,10 +62,13 @@ int main()
         // dimensions is the number of dimensions the hypercubes exist in
         for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
-            rn = random_maker(rn);
-            which_box += floor(rn * box_num * j);
+            rn = random_maker();
+            printf("j: %d random: %f", j, rn);
+            which_box += floor(rn * box_num) * j;
         }
+        // boxes is of size number. number is box_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
+        printf("\nThis is the box: %d\n", which_box);
     }
     // Now we have a filled array of boxes, filled with points 
     

@@ -83,11 +83,13 @@ int main()
             printf("boxes with %d: %d\n", i, histogram[i]);
         }
     }
-    // number is the number of boxes. Therefore k an average
-    // So, let's take a look at this
+    
+    // Now we do math to calculate what the average distribution should be
+    // number is the number of boxes. Therefore k an average number of points in each box
     k = points / number;
     int total = 0;
     poisson_fact = exp(-k);
+    // this implementation can only go up to 21
     for (i = 0; i < 21 && i < points; i++) { //above 21 I aproximate the poisson distribution as 0
         if (histogram[i] != 0) {
             rootNk = 1 / sqrt(histogram[i]); // using sqrt instead of pow 0.5
@@ -105,6 +107,9 @@ int main()
     for(i = 21; i < points; i++) //since factorial is too large for int over 21, I assume poisson is 0
         if (histogram[i] == 0)
             poisson_boxes++;
+
+    // this prints out the difference between our count and our expected count.
+    // or, more accurately, should
     printf("%lf%%\n", 100 * ((double) poisson_boxes / (poisson_boxes + total)));
     return 0;
 }

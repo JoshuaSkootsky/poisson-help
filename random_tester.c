@@ -87,7 +87,7 @@ int main()
         }
         // boxes is of size number. number is box_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
-        printf("box number: %d", which box);    
+        printf("box number: %d", which_box);    
     }
     // Now we have a filled array of boxes, filled with points 
     

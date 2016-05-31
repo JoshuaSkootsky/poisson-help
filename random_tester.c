@@ -73,14 +73,9 @@ int main()
     // Generate the points, place into boxes.
     for (i = 0; i < points; i++) {
         which_box = 0;
-        // dimensions is the number of dimensions the hypercubes exist in
-        for (j = 1; j <= dimensions; j++) {
-            // random_maker must return a number between 0 and 1
-            rn = random_maker();
-            // final value of which_box needs to range from 0 to number
-            box_num = floor(rn * side_num);
-            which_box += box_num * ipow(side_num, j);
-        }
+        rn = random_maker();
+        // just put it in a kosher box
+        which_box = floor(rn * number);
         // boxes is of size number. number is side_num to the power of dimension
         boxes[which_box]++; //increment the count of boxes for each box "filled"
     }

@@ -52,8 +52,9 @@ int main()
     // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
     puts("Assigning memory to boxes \n");
-    boxes =  calloc ( number, sizeof (int) );
-    histogram = calloc( points, sizeof (int) );
+    boxes =  calloc ( number, sizeof (int) ); // Each piece of memory in boxes represents a minihypercube
+    histogram = calloc( points, sizeof (int) ); // Really, I should only need boxes number of memory...
+    
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
         rn = random_maker(rn);
@@ -69,13 +70,9 @@ int main()
             // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
             // if I'm using the random number directly, I don't need a "point" variable
-            point = rn;
-            
-            box_number += floor(point * box_size) * j;
         }
-        puts("We're going to try doing something with boxes!\n");
-        boxes[box_number]++;
     }
+    
     puts("We did something with the boxes in line 93, and this program did not crash!\n"); 
     // number is the number of mini hypercubes
     // boxes is an indexed array of all the hypercubes

@@ -60,11 +60,11 @@ int main()
         // just put it in a kosher box
         which_box = floor(rn * number);
         // boxes is of size number. number is side_num to the power of dimension
-        boxes[which_box]++; //increment the count of boxes for each box "filled"
+        boxes[which_box]++; // increment the count of points in each boxes for each box when it is "filled"
     }
-    // Now we have a filled array of boxes, filled with points 
+    // Now we have an array of boxes, filled with points 
     
-    // Histogram those points by making an ordered frequnecy count
+    // Histogram those points by making a frequnecy count
     for (i = 0; i < number; i++) {
         // each pass increments the histogram
         box_count = boxes[i];

@@ -24,7 +24,7 @@ unsigned long int factorial(int num) {
 
 int main()
 {
-    int seed, i, j, which_box, dimensions, points, number, box_num, box_count, poisson_boxes = 0;
+    int random_seed, i, j, which_box, dimensions, points, number, box_num, box_count, poisson_boxes;
     double k, point, box_size, poisson, poisson_fact, rootNk, rn;
     int *histogram, *boxes;
     
@@ -38,10 +38,10 @@ int main()
     box_size = 1/box_num;
     
     printf("What is the random seed? Provide a 32 bit integer\n");
-    scanf("%d", &seed);
-    // divide the 32 bit integer by the largest unsigned 32 bit integer
-    rn = (double) seed / 0xFFFFFFFF;
-    
+    scanf("%d", &random_seed);
+    // use the seed function from the random.c file, which is extern in random.h
+    seed(random_seed);
+ 
     // number is the number of mini hypercubes
     number = pow(box_num, dimensions);
     printf("\n %d \n", number);
@@ -63,9 +63,7 @@ int main()
         for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
-            printf("rn: %f\n", rn);
             which_box += floor(rn * box_num * j);
-            printf("which_box: %d\n", which_box);
         }
         boxes[which_box]++; //increment the count of boxes for each box "filled"
     }

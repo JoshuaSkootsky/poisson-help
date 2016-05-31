@@ -48,7 +48,6 @@ int main()
 
     // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
-    puts("Assigning memory to boxes \n");
     boxes =  calloc ( number, sizeof (int) ); // Each piece of memory in boxes represents a minihypercube
     histogram = calloc( number, sizeof (int) ); // Really, I should only need boxes number of memory...
     
@@ -64,7 +63,9 @@ int main()
         for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
+            printf("rn: %f\n", rn);
             which_box += floor(rn * box_num * j);
+            printf("which_box: %d\n", which_box);
         }
         boxes[which_box]++; //increment the count of boxes for each box "filled"
     }

@@ -82,6 +82,13 @@ int main()
     // number is the number of boxes. Therefore k an average number of points in each box 
     k = points / number;
     
+    // Poisson distribution P(k) = exp(-<k><k>^k / k!
+    // where <k> = points / number
+    // 68% confidence interval of  N_k /N is P(k) / sqrt N, where N_k is the number of boxes
+    //      with exactly k points.
+    // if histogram is outside of the predicted bounds for more than 68% of the values of k,
+    //      then the RNG does not pass this statistical test
+
     // do this in log space
     
     

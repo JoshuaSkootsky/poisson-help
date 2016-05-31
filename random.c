@@ -1,14 +1,19 @@
-// Yehuda Gale
-// Joshua Skootsky
-// Returns a number between 0 and 1, with a max cycle of 2^32
-#include <stdint.h> // using guarenteed and specified 32 bit numbers
+// Joshua Skootsky and Yehuda Gale, 2016
+#include <stdint.h>
 
-static uint32_t mult = 236887691;           // multiplier
-static uint32_t add = 961835761;            //aditive constant
+//Yehuda used large prime numbers for both mult and add
+static uint32_t mult = 236887691;   // multiplier
+static uint32_t add = 961835761;    //aditive constant
+static uint32_t random = 123456789; // basic seed 
 
-double random_maker(uint32_t rand32)
-{
-    rand32 = rand32 * mult + add;
-    return (double) rand32 / 0xFFFFFFFF;
-    // largest 32 bit unsigned int is 8 Fs in hexadecidaml;
+double random_maker() {
+    
+    random = mult * random + add;
+    return (double) random/ 0xFFFFFFFF;
+    // 8 Fs is the largest unsigned int
+    // result should be between 0 and 1
+}
+
+void seed(int random_seed) {
+    random = random_seed;
 }

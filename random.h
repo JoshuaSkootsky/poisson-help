@@ -1,2 +1,3 @@
 // Yehuda Gale, 2016
-extern double random_maker(double random_number);
+extern double random_maker();
+extern void seed(int random_seed);

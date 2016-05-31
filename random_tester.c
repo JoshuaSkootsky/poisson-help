@@ -24,7 +24,7 @@ unsigned long int factorial(int num) {
 
 int main()
 {
-    int seed, i, j, which_box, dimensions, points, number, box_num, poisson_boxes = 0;
+    int seed, i, j, which_box, dimensions, points, number, box_num, box_count, poisson_boxes = 0;
     double k, point, box_size, poisson, poisson_fact, rootNk, rn;
     int *histogram, *boxes;
     
@@ -69,16 +69,16 @@ int main()
         boxes[which_box]++; //increment the count of boxes for each box "filled"
     }
     // Now we have a filled array of boxes, filled with points 
-    // Now, let's do a histogram of how many boxes have how many points
     
-    // boxes is an indexed array of all the hypercubes
-    // the histogram - could every box have a unique number of points? Unlikely, but sure.
+    // Histogram those points by making an ordered frequnecy count
     for (i = 0; i < number; i++) {
-        //create the histogram
-        histogram[boxes[i]]++;
+        // each pass increments the histogram
+        box_count = boxes[i];
+        histogram[box_count]++;
     }
+
     // this prints out the interesting values of the histogram for us
-    for (i = 0; i < points; i++) { //use this for more info
+    for (i = 0; i < number; i++) {
         if (histogram[i] != 0) {
             printf("boxes with %d: %d\n", i, histogram[i]);
         }

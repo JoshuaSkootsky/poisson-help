@@ -1,25 +1,8 @@
-// Yehuda Gale, 2016
+// Yehuda Gale and Joshua Skootsky, 2016
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "random.h"
-
-// I think there are problems with a custom factorial function that returns zero for numbers above 20... but I will fix this later
-unsigned long int factorial(int num) {
-    // really a table of the first 20 factorials would be better
-    if (num > 20) { //20 factorial is the largest that can fit in int
-        return 0;
-    }
-    else {
-        int i;
-        unsigned long int ret = 1; // get the max size on this
-        while (num > 0) {
-            ret *= i;
-            num--;
-        }
-        return ret;
-    }
-}
 
 // custom integer power function - uses exponentiation by squaring
 int ipow(int base, int exp) {

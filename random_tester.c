@@ -24,7 +24,7 @@ unsigned long int factorial(int num) {
 
 int main()
 {
-    int seed, i, j, box_number;
+    int seed, i, j, box_count;
     int dimensions, points, number, box_num, poisson_boxes = 0;
     double k, point, box_size, poisson, poisson_fact, rootNk;
     double rn; //random number
@@ -53,7 +53,7 @@ int main()
     // boxes an array, each spot representing a mini hypercube.
     puts("Assigning memory to boxes \n");
     boxes =  calloc ( number, sizeof (int) ); // Each piece of memory in boxes represents a minihypercube
-    histogram = calloc( points, sizeof (int) ); // Really, I should only need boxes number of memory...
+    histogram = calloc( number, sizeof (int) ); // Really, I should only need boxes number of memory...
     
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
@@ -61,26 +61,26 @@ int main()
     }
     
     // Generate the points, place into boxes.
-    for (i = 0; i < points; i++)
-    {
-        box_number = 0;
+    for (i = 0; i < points; i++) {
+        which_box = 0;
         // dimensions is the number of dimensions the hypercubes exist in
-        for (j = 1; j <= dimensions; j++)
-        {
+        for (j = 1; j <= dimensions; j++) {
             // random_maker must return a number between 0 and 1
             rn = random_maker(rn);
-            // if I'm using the random number directly, I don't need a "point" variable
+            which_box += floor(rn * box_num * j);
         }
+        boxes[which_box]++; //increment the count of boxes for each box "filled"
     }
+    // Now we have a filled array of boxes, filled with points 
+    // Now, let's do a histogram of how many boxes have how many points
     
-    puts("We did something with the boxes in line 93, and this program did not crash!\n"); 
-    // number is the number of mini hypercubes
     // boxes is an indexed array of all the hypercubes
+    // the histogram - could every box have a unique number of points? Unlikely, but sure.
     for (i = 0; i < number; i++) {
         //create the histogram
-        // how op
         histogram[boxes[i]]++;
     }
+    // this prints out the interesting values of the histogram for us
     for (i = 0; i < points; i++) { //use this for more info
         if (histogram[i] != 0) {
             printf("boxes with %d: %d\n", i, histogram[i]);

@@ -8,7 +8,7 @@ static uint32_t random = 123456789; // basic seed
 
 double random_maker() {
     
-    random = mult * random + add;
+    //random = mult * random + add;
     return (double) random/ 0xFFFFFFFF;
     // 8 Fs is the largest unsigned int
     // result should be between 0 and 1

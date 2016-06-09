@@ -18,6 +18,12 @@ int ipow(int base, int exp) {
 }
 
 // custom, numerically stable poisson distribution in log space
+// Write Poisson mass probability like this:
+// f(k; lambda) = exp{k ln lambda - lambda - ln gamma (k + 1)
+// which uses Stirling's approximation, log rearranging, and k! = gamma(k+1)
+// C language has "lgamma" to calculate the log of gamma directly, C99 standard
+// see the function log_poisson_d(k, lambda) that I wrote for this purpose
+
 double log_poisson_d(int k, int lambda) {
         // exp and log are base "e"
         return exp( (k * log(lambda) )  - lambda - lgamma(k + 1) );
@@ -52,7 +58,7 @@ int main()
     // set the boxes and histogram initially to zero, so use calloc
     // boxes an array, each spot representing a mini hypercube.
     boxes =  calloc ( number, sizeof (int) ); // Each piece of memory in boxes represents a minihypercube
-    histogram = calloc( points, sizeof (int) ); // Need number of points b/c how histogram is built
+    histogram = calloc( points + 1, sizeof (int) ); // Need number of points b/c how histogram is built
     
     // Run the RNG a few times just to get away from your seed
     for (i = 0; i < 10; i++) {
@@ -69,43 +75,29 @@ int main()
         boxes[which_box]++; // increment the count of points in each boxes for each box when it is "filled"
     }
     // Now we have an array of boxes, filled with points 
-
-    // Histogram those points by making a frequnecy count. Need as much memory as points.
-    // problem - boxes doesn't have points number of boxes.
-    /** for (i = 0; i < points; i++) {
-        // each pass increments the histogram
-       
-        box_count = boxes[i];
-        histogram[box_count]++;
-    } **/
+    
+    // histogram those points. Note that boxes has size number, and the range of histogram corresponds to the domain of boxes.
     for (i = 0; i < number; i++) {
         box_count = boxes[i];
         histogram[box_count]++;
     }
     
-    // now switch to points
-    for (i = 0; i < points; i++) {
+    // now switch to points + 1 for the histogram, since all the points may be in a box, and no points may be in a box.
+    for (i = 0; i < points + 1; i++) {
         if (histogram[i] != 0) {
             printf("Points in box = %d, boxes with that number of points = %d \n", i, histogram[i]);
         }
     }
 
     // Now we do math to calculate what the average distribution should be
-
     // do this in log space
-    // Write Poisson mass probability like this:
-    // f(k; lambda) = exp{k ln lambda - lambda - ln gamma (k + 1)
-    // which uses Stirling's approximation, log rearranging, and k! = gamma(k+1)
-
-    // C language has "lgamma" to calculate the log of gamma directly, C99 standard
-    // see the function log_poisson_d(k, lambda) that I wrote for this purpose
-
+    
     // note: i = number of points in the box, histogram[i] is the number of boxes that contain
     // that number of points inside 
     int num_points_in_box, num_boxes_same_points, k, lambda;
     double result;
 
-    for (i = 0; i < points; i++) {
+    for (i = 0; i < points + 1; i++) {
         if (histogram[i] != 0) {
             num_points_in_box = i;    
             num_boxes_same_points = histogram[i];

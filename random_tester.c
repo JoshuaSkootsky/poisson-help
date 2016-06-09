@@ -71,18 +71,24 @@ int main()
     // Now we have an array of boxes, filled with points 
 
     // Histogram those points by making a frequnecy count. Need as much memory as points.
-    for (i = 0; i < points; i++) {
+    // problem - boxes doesn't have points number of boxes.
+    /** for (i = 0; i < points; i++) {
         // each pass increments the histogram
+       
+        box_count = boxes[i];
+        histogram[box_count]++;
+    } **/
+    for (i = 0; i < number; i++) {
         box_count = boxes[i];
         histogram[box_count]++;
     }
     
+    // now switch to points
     for (i = 0; i < points; i++) {
         if (histogram[i] != 0) {
             printf("Points in box = %d, boxes with that number of points = %d \n", i, histogram[i]);
         }
     }
-
 
     // Now we do math to calculate what the average distribution should be
 
@@ -99,7 +105,7 @@ int main()
     int num_points_in_box, num_boxes_same_points, k, lambda;
     double result;
 
-    for (i = 0; i < number; i++) {
+    for (i = 0; i < points; i++) {
         if (histogram[i] != 0) {
             num_points_in_box = i;    
             num_boxes_same_points = histogram[i];
